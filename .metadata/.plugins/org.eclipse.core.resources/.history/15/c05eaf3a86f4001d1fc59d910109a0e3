@@ -1,0 +1,14 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<img alt="never" src="/ROOT/image/네버로고.png">
+	String configFolder = config.getServletContext().getRealPath("D:\_jsp_workspace\jsp_project3\jsp_project2\WebContent\image");
+
+</body>
+</html>

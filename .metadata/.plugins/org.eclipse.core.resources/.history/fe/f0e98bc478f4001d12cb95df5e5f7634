@@ -1,0 +1,40 @@
+package controller;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+@WebServlet("/brdm")
+public class BoardMemController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private static final Logger log = LoggerFactory.getLogger(BoardController.class);
+	private RequestDispatcher rdp; // 웹의 목적지 주소로 객체를 전달해주는 객체
+	private BoardService bsv; // interface 구현체
+	private int isOk; // DB의 insert, update, delete의 결과를 받는 변수
+	private String destPage; // 목적지 주소를 저장해주는 변수
+    
+    public BoardMemController() {
+        // TODO Auto-generated constructor stub
+    }
+
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+	}
+
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}
