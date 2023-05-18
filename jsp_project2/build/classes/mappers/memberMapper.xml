@@ -11,4 +11,25 @@
 		insert into member (id, pw, name, phone, email)
 		values (#{id}, #{pw}, #{name}, #{phone}, #{email})
 	</insert>
+	
+	<select id="list" resultType="mvo">
+		select id, name, email, regdate from member order by regdate desc
+	</select>
+	
+	<select id="detail" parameterType="mvo" resultType="mvo">
+		select * from member where id = #{id}
+	</select>
+	
+	<update id="modify">
+		update member set pw=#{pw}, phone=#{phone}, email=#{email}, auth=#{auth} 
+		where id=#{id}
+	</update>
+	
+	<update id="lastLogin" parameterType="String">
+		update member set last_login = now() where id=#{id}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		delete from member where id=#{id}
+	</delete>
 </mapper>

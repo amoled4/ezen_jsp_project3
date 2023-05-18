@@ -1,5 +1,7 @@
 package repository;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +32,45 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public int insert(MemberVO mvo) {
 		int isOk = sql.insert(NS+"join", mvo);
+		if(isOk>0) {
+			sql.commit();
+		}
+		return isOk;
+	}
+
+	@Override
+	public List<MemberVO> selectList() {
+		// TODO Auto-generated method stub
+		return sql.selectList(NS+"list");
+	}
+
+	@Override
+	public int update(MemberVO mvo) {
+		int isOk = sql.update(NS+"modify", mvo);
+		if(isOk>0) {
+			sql.commit();
+		}
+		return isOk;
+	}
+
+	@Override
+	public MemberVO selectDetail(MemberVO mvo) {
+		// TODO Auto-generated method stub
+		return sql.selectOne(NS+"detail", mvo);
+	}
+
+	@Override
+	public int lastLogin(String id) {
+		int isOk = sql.update(NS+"lastLogin", id);
+		if(isOk>0) {
+			sql.commit();
+		}
+		return isOk;
+	}
+
+	@Override
+	public int delete(String id) {
+		int isOk = sql.delete(NS+"delete", id);
 		if(isOk>0) {
 			sql.commit();
 		}

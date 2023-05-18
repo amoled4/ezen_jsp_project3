@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -83,6 +85,60 @@ public class MemberController extends HttpServlet {
 			
 			isOk = msv.join(mvo);
 			log.info(">>> 회원가입 > "+ (isOk>0 ? "성공":"실패"));
+			request.setAttribute("msg_join", 0);
+			destPage="/";
+			break;
+			
+		case "list":
+			List<MemberVO> list = new ArrayList<MemberVO>();
+			list = msv.list();
+			request.setAttribute("list", list);
+			destPage="/member/list.jsp";
+			break;
+			
+		case "detail":
+			id = request.getParameter("id");
+			mvo = new MemberVO(id);
+			request.setAttribute("mvo", msv.detail(mvo));
+			destPage="/member/detail.jsp";
+			break;
+			
+		case "modify":
+			id = request.getParameter("id");
+			pw = request.getParameter("pw");
+			phone = request.getParameter("phone");
+			email = request.getParameter("email");
+			if(request.getParameter("auth") != null) {
+				auth = Integer.parseInt(request.getParameter("auth"));
+			}
+			mvo = new MemberVO(id, pw, phone, email, auth);
+			
+			isOk = msv.modify(mvo);
+			log.info(">>> 회원정보 수정 > "+ (isOk>0 ? "성공":"실패"));
+			request.setAttribute("msg_modify", 0);
+			destPage ="/";
+			break;
+			
+		case "logout":
+			ses = request.getSession();
+			mvo = (MemberVO)ses.getAttribute("ses");
+			id = mvo.getId();
+			isOk = msv.lastLogin(id);
+			ses.invalidate();
+			destPage = "/";
+			break;
+			
+		case "remove":
+			request.setAttribute("msg_remove", 0);
+			id = request.getParameter("id");
+			isOk = msv.remove(id);
+			log.info(">>> 회원탈퇴 > "+ (isOk>0? "성공":"실패"));
+			
+			ses = request.getSession();
+			mvo = (MemberVO)ses.getAttribute("ses");
+			if(isOk>0 && id.equals(mvo.getId())) {
+				ses.invalidate();
+			}
 			destPage="/";
 			break;
 		}
