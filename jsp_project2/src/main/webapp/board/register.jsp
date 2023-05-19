@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +26,7 @@ input {
 	font-size: 14px;
 }
 
-textarea{
+textarea {
 	font-size: 16px;
 	width: 330px;
 	height: 300px;
@@ -42,25 +42,26 @@ button {
 </style>
 </head>
 <body>
-<form action="/brd/insert">
-<div>
-<img alt="never" src="/image/네버로고.png"> <br>
-	<table>
-		<tr>
-			<th>제목</th>
-			<td><input type="text" name="title"></td>
-		</tr>
-		<tr>
-			<th>작성자</th>
-			<td><input type="text" name="writer" value="${ses.id }" readonly="readonly"></td>
-		</tr>
-		<tr>
-			<th>내용</th>
-			<td><textarea name="content"></textarea></td>
-		</tr>
-	</table>
-	<button type="submit">작성완료</button>
-	<a href="/brd/list"><button type="button">취소</button></a>
+	<form action="/brd/insert">
+		<div>
+			<img alt="never" src="/image/네버로고.png"> <br>
+			<table>
+				<tr>
+					<th>제목</th>
+					<td><input type="text" name="title"></td>
+				</tr>
+				<tr>
+					<th>작성자</th>
+					<td><input type="text" name="writer" value="${ses.id }"
+						readonly="readonly"></td>
+				</tr>
+				<tr>
+					<th>내용</th>
+					<td><textarea name="content"></textarea></td>
+				</tr>
+			</table>
+			<button type="submit">작성완료</button>
+			<a href="/brd/list"><button type="button">취소</button></a>
 	</form>
 	</div>
 </body>

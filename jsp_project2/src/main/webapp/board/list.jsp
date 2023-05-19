@@ -20,13 +20,27 @@ img {
 	margin-bottom: 50px;
 }
 
-table, tr, th, td {
-	width: 800px;
-	border: 1px solid black;
-	padding: 10px 20px;
+table {
 	border-collapse: collapse;
+	width: 800px;
+	padding: 10px 20px;
 	text-align: center;
-	border: 1px solid black;
+}
+
+th {
+	color: #03c75a;
+	border-bottom: 2px solid #03c75a;
+	padding: 10px;
+}
+
+td {
+	color: #669;
+	border-bottom: 1px solid #ddd;
+	padding: 10px;
+}
+
+tr:hover td {
+	color: #004;
 }
 
 button {
@@ -35,6 +49,7 @@ button {
 	margin-top: 30px;
 	background-color: #03c75a;
 	color: white;
+	cursor: pointer;
 }
 </style>
 </head>
