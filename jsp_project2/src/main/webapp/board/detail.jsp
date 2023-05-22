@@ -11,6 +11,7 @@
 	rel="stylesheet"
 	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
 	crossorigin="anonymous">
+
 <style type="text/css">
 .box {
 	position: absolute;
@@ -35,7 +36,8 @@ table, tr, th, td {
 
 .btnDe {
 	display: inline-block;
-	float: right; border : none;
+	float: right;
+	border: none;
 	padding: 5px 15px;
 	margin: 10px 5px;
 	background-color: #03c75a;
@@ -46,15 +48,11 @@ table, tr, th, td {
 .commentWrite {
 	margin-top: 50px;
 }
-
-
 </style>
 </head>
 <body>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-		crossorigin="anonymous"></script>
+	
+
 	<div class="box">
 		<img alt="never" src="/image/네버로고.png"> <br>
 		<c:if test="${bvo.writer eq ses.id }">
@@ -65,7 +63,6 @@ table, tr, th, td {
 		<table>
 			<tr>
 				<td><strong>번호</strong> ${bvo.bno }</td>
-				
 			</tr>
 			<tr>
 				<td><strong>작성자</strong> ${bvo.writer }</td>
@@ -94,27 +91,33 @@ table, tr, th, td {
 		</div>
 		<br>
 		<!-- 댓글 표시 라인 -->
-		<div class="accordion accordion-flush" id="accordionFlushExample">
+		<div class="accordion" id="accordionExample">
 			<div class="accordion-item">
-				<h2 class="accordion-header" id="flush-headingOne">
-					<button class="accordion-button collapsed" type="button"
-						data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
-						aria-expanded="false" aria-controls="flush-collapseOne">
-						cno, writer</button>
+				<h2 class="accordion-header" id="headingOne">
+					<button class="accordion-button" type="button"
+						data-bs-toggle="collapse" data-bs-target="#collapseOne"
+						aria-expanded="true" aria-controls="collapseOne">cno,
+						writer</button>
 				</h2>
-				<div id="flush-collapseOne" class="accordion-collapse collapse"
-					aria-labelledby="flush-headingOne"
-					data-bs-parent="#accordionFlushExample">
+				<div id="collapseOne" class="accordion-collapse"
+					aria-labelledby="headingOne" data-bs-parent="#accordionExample">
 					<div class="accordion-body">content, regdate</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+		crossorigin="anonymous"></script>
 	<script type="text/javascript">
 		const bnoVal = `<c:out value="${bvo.bno}"/>`;
 	</script>
-	<script src="/resources/board_detail.js">
+	<script type="text/javascript" src="/resources/board_detail.js">
 		
+	</script>
+	<script type="text/javascript">
+		printCommentList(bnoVal);
 	</script>
 </body>
 </html>

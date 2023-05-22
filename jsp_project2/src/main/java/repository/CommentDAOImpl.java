@@ -38,4 +38,24 @@ public class CommentDAOImpl implements CommentDAO {
 		return sql.selectList(NS+"list",bno);
 	}
 
+	@Override
+	public int delete(int cno) {
+		log.info(">>> comment remove > DAO in");
+		isOk = sql.delete(NS+"delete", cno);
+		if(isOk>0) {
+			sql.commit();
+		}
+		return isOk;
+	}
+
+	@Override
+	public int update(CommentVO cvo) {
+		log.info(">>> comment modify > DAO in");
+		isOk = sql.update(NS+"update", cvo);
+		if(isOk>0) {
+			sql.commit();
+		}
+		return isOk;
+	}
+
 }

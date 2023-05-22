@@ -11,4 +11,13 @@
   	<select id="list" parameterType="int" resultType="cvo">
   		select * from comment where bno=#{bno}
   	</select>
+  	
+  	<delete id="delete" parameterType="int">
+  		delete from comment where cno=#{cno}
+  	</delete>
+  	
+  	<update id="update" parameterType="cvo">
+  		update comment set content=#{content} where cno=#{cno}
+  	</update>
+  	
   </mapper>
