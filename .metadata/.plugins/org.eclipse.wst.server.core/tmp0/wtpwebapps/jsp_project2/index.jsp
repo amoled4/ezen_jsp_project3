@@ -40,7 +40,7 @@ button{
 		<strong>${ses.name }</strong> 님이 로그인하셨습니다. <br>
 		마지막 접속일 : ${ses.last_login } <br>
 			<br>
-			<a href="/brd/list"><button type="button">게시판</button></a>
+			<a href="/brd/page"><button type="button">게시판</button></a>
 			<a href="/mem/logout"><button type="button">로그아웃</button></a>
 			<a href="/mem/detail?id=${ses.id }"><button type="button">회원정보수정</button></a>
 			<a href="/mem/remove?id=${ses.id }"><button type="button">회원탈퇴</button></a>

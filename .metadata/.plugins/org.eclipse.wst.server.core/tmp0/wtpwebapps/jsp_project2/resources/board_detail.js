@@ -62,7 +62,7 @@ function printCommentList(bno) {
 		if (result.length > 0) {  // 등록된 댓글이 있음
 			spreadCommentList(result);
 		} else {
-			let div = document.getElementById('accordionExample');
+			let div = document.getElementById('commentBox');
 			div.innerText = "Comment가 없습니다.";
 		}
 	})
@@ -70,94 +70,85 @@ function printCommentList(bno) {
 
 function spreadCommentList(result) {   // 댓글 List
 	console.log(result);
-	let div = document.getElementById('accordionExample');
+	let div = document.getElementById('commentBox');
 	div.innerHTML = "";
 	for (let i = 0; i < result.length; i++) {
-		let html = `<div class="accordion-item">`;
-		html += `<h2 class="accordion-header" id="heading${i}">`;
-		html += `<button class="accordion-button" type="button"
-						data-bs-toggle="collapse"`;
-		html += `data-bs-target="#collapse${i}"
-						aria-expanded="true" aria-controls="collapse${i}">`;
-		html += `${result[i].cno}, ${result[i].writer}</button></h2>`;
-		html += `<div id="collapse${i}" class="accordion-collapse"
-					aria-labelledby="heading${i}"
-					data-bs-parent="#accordionExample">`;
-		html += `<div class="accordion-body">`;
-		html += `<button type="button" data-cno="${result[i].cno}" data-writer="${result[i].writer}" class="btn btn-success btn-sm cmtModBtn">%</button>`;
-		html += `<button type="button" data-cno="${result[i].cno}" data-writer="${result[i].writer}" class="btn btn-success btn-sm cmtDelBtn">X</button>`;
-		html += `<input type="text" class="form-control" id="cmtText1" value="${result[i].content}">`;
-		html += `${result[i].regdate}</div></div></div>`;
+		let html = `<strong>${result[i].writer}</strong><br>`;
+		html += `<textarea rows="2" cols="70" class="form-control" id="cmtText1">${result[i].content}</textarea><br>`;
+		html += `<span>${result[i].regdate}</span>`;
+		html += `<button type="button" data-cno="${result[i].cno}" data-writer="${result[i].writer}" class="btn cmtModBtn">수정</button>`;
+		html += `<button type="button" data-cno="${result[i].cno}" data-writer="${result[i].writer}" class="btn cmtDelBtn">삭제</button><br>`;
+		html += `</div><br><hr>`;
 		div.innerHTML += html;  // 누적해서 담기
 	}
 }
 
-async function removeCommentFromServer(cnoVal){
-	try{
-		const url = '/cmt/remove?cnoVal='+cnoVal;
+async function removeCommentFromServer(cnoVal) {
+	try {
+		const url = '/cmt/remove?cnoVal=' + cnoVal;
 		const config = {
-			method:'post'
+			method: 'post'
 		}
 		const resp = await fetch(url, config);
 		const result = await resp.text();  // isOk
 		return result;
-	}catch(error){
+	} catch (error) {
 		console.log(error);
 	}
 }
 
-async function updateCommentFromServer(cnoVal, cmtText1, writer){
-	try{
+async function updateCommentFromServer(cnoVal, cmtText1, writer) {
+	try {
 		const url = "/cmt/modify";
-		const config ={
+		const config = {
 			method: "post",
 			headers: {
-				'Content-Type' : 'application/json; charset=utf-8'
+				'Content-Type': 'application/json; charset=utf-8'
 			},
-			body : JSON.stringify({cno:cnoVal, content:cmtText1, writer:writer})
+			body: JSON.stringify({ cno: cnoVal, content: cmtText1, writer: writer })
 		}
 		const resp = await fetch(url, config);
 		const result = await resp.text();     // isOk
 		return result;
-		
-	}catch(error){
+
+	} catch (error) {
 		console.log(error);
 	}
 }
 
-document.addEventListener('click', (e)=>{  // e 내가 클릭한 객체
-	if(e.target.classList.contains('cmtModBtn')){
+document.addEventListener('click', (e) => {  // e 내가 클릭한 객체
+	if (e.target.classList.contains('cmtModBtn')) {
 		// 수정작업
 		let cnoVal = e.target.dataset.cno;
 		console.log(cnoVal);
 		// 기존 위치에서 값을 읽어들여 내용을 DB에 저장한 후 변경
 		// 현재 수정하고자 하는 값 input box의 값을 찾기위한 작업
 		// closest => 타겟을 기준으로 가장 가까운 값 찾기
-		let div = e.target.closest('div'); 
+		let div = e.target.closest('div');
 		let cmtText1 = div.querySelector('#cmtText1').value;
 		let writer = e.target.dataset.writer;
-		
+
 		// 비동기 통신
-		updateCommentFromServer(cnoVal, cmtText1, writer).then(result=>{
-			if(result>0){
+		updateCommentFromServer(cnoVal, cmtText1, writer).then(result => {
+			if (result > 0) {
 				alert('댓글 수정 완료');
 				printCommentList(bnoVal);
 				console.log(result);
-			}else{
+			} else {
 				alert('댓글 수정 실패');
 			}
 		})
 	}
-	if(e.target.classList.contains('cmtDelBtn')){
+	if (e.target.classList.contains('cmtDelBtn')) {
 		// 삭제작업
 		let cnoVal = e.target.dataset.cno;
 		console.log(cnoVal);
-		removeCommentFromServer(cnoVal).then(result=>{
-			if(result>0){
+		removeCommentFromServer(cnoVal).then(result => {
+			if (result > 0) {
 				alert('댓글 삭제 완료');
 				printCommentList(bnoVal);
 				console.log(bnoVal);
-			}else{
+			} else {
 				alert('댓글 삭제 실패');
 			}
 		})

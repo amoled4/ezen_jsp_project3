@@ -74,8 +74,25 @@ button {
 				</tr>
 			</c:forEach>
 		</table>
-		<a href="/brd/register"><button type="button">글작성</button></a> <a
-			href="/"><button type="button">메인</button></a>
+		<br>
+		<!-- 페이지네이션 위치 -->
+
+		<!-- 이전페이지 -->
+		<c:if test="${pgh.prev }">
+			<a href="/brd/page?pageNo=${pgh.startPage-1 }&qty=${pgh.pgvo.qty}">prev</a>
+		</c:if>
+		<!-- 컨트롤러에서 page 정보를 싣고 와야 함 -->
+		<!-- startpage~endpage까지 숫자 반복 (foreach) -->
+		<c:forEach begin="${pgh.startPage }" end="${pgh.endPage }" var="i">
+			<a href="/brd/page?pageNo=${i }&qty=${pgh.pgvo.qty}">${i } | </a>
+		</c:forEach>
+		<!-- 다음페이지 -->
+		<c:if test="${pgh.next }">
+			<a href="/brd/page?pageNo=${pgh.endPage+1 }&qty=${pgh.pgvo.qty}">next</a>
+		</c:if>
+		<br> <a href="/brd/register"><button type="button">글작성</button></a>
+		<a href="/"><button type="button">메인</button></a>
 	</div>
+
 </body>
 </html>

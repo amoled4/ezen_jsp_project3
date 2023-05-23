@@ -61,7 +61,7 @@ button {
 				</tr>
 			</table>
 			<button type="submit">작성완료</button>
-			<a href="/brd/list"><button type="button">취소</button></a>
+			<a href="/brd/page"><button type="button">취소</button></a>
 	</form>
 	</div>
 </body>

@@ -17,6 +17,8 @@ import org.slf4j.LoggerFactory;
 
 import domain.BoardVO;
 import domain.MemberVO;
+import domain.PagingVO;
+import handler.PagingHandler;
 import service.BoardService;
 import service.BoardServiceImpl;
 
@@ -37,6 +39,10 @@ public class BoardController extends HttpServlet {
 	private String content;
 	private int readcount;
 	private BoardVO bvo;
+	private PagingVO pgvo;
+	private int pageNo;  
+	private int qty; 
+	
 	
 	private HttpSession ses;
     
@@ -60,6 +66,58 @@ public class BoardController extends HttpServlet {
 			list = bsv.list();
 			request.setAttribute("list", list);
 			destPage="/board/list.jsp";
+			break;
+			
+//		case "pagesub":
+//			try {
+//				pageNo = Integer.parseInt(request.getParameter("pageNo"));
+//				qty = Integer.parseInt(request.getParameter("qty"));
+//				pgvo = new PagingVO(pageNo, qty);
+//				
+//				int totCount = bsv.getTotal();   // 전체 페이지 개수 DB에 요청
+//				log.info("전체 페이지 개수 : "+totCount);
+//				// limit를 이용한 select List를 호출 (startPage, qty)
+//				// 한 페이지에 나와야 하는 리스트
+//				List<BoardVO> list1 = bsv.getPageList(pgvo);
+//				log.info(">>> list > "+list1.size());
+//				PagingHandler ph = new PagingHandler(pgvo, totCount);
+//				request.setAttribute("pgh", ph);
+//				request.setAttribute("list", list1);
+//				log.info("pageList 성공");
+//				destPage = "/board/list.jsp";
+//				
+//			} catch (Exception e) {
+//				// TODO: handle exception
+//				e.printStackTrace();
+//			}
+//			
+//			break;
+			
+		case "page":
+			try {
+				pageNo = 1;
+				qty = 10;
+				if(request.getParameter("pageNo") !=null) {
+					pageNo = Integer.parseInt(request.getParameter("pageNo"));
+					qty = Integer.parseInt(request.getParameter("qty"));
+				}
+				pgvo = new PagingVO(pageNo, qty);
+				// 전체 페이지 개수
+				int totCount = bsv.getTotal();   // 전체 페이지 개수 DB에 요청
+				log.info("전체 페이지 개수 : "+totCount);
+				// limit를 이용한 select List를 호출 (startPage, qty)
+				// 한 페이지에 나와야 하는 리스트
+				List<BoardVO> list1 = bsv.getPageList(pgvo);
+				log.info(">>> list > "+list1.size());
+				PagingHandler ph = new PagingHandler(pgvo, totCount);
+				request.setAttribute("pgh", ph);
+				request.setAttribute("list", list1);
+				log.info("pageList 성공");
+				destPage = "/board/list.jsp";
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
 			break;
 			
 		case "register":

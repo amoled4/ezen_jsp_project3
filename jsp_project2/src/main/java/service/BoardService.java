@@ -3,6 +3,7 @@ package service;
 import java.util.List;
 
 import domain.BoardVO;
+import domain.PagingVO;
 
 public interface BoardService {
 
@@ -15,5 +16,9 @@ public interface BoardService {
 	int edit(BoardVO bvo);
 
 	int remove(int bno);
+
+	int getTotal();
+
+	List<BoardVO> getPageList(PagingVO pgvo);
 
 }

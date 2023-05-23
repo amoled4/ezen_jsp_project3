@@ -53,7 +53,9 @@ public class CommentController extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		// contentType은 사용하지 않음
 		
+		
 		// brd/list, brd/register?bno=${1} => cmt/post/1 : REST API 방식
+		// /cmt/post/1 => pathUri : post/1 => path : post => pathVar : 1
 		String uri = request.getRequestURI();
 		log.info(uri);
 		String pathUri = uri.substring("/cmt/".length());

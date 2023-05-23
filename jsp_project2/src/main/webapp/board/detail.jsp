@@ -6,11 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>글 보기</title>
-<link
+<!-- <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-	crossorigin="anonymous">
+	crossorigin="anonymous"> -->
 
 <style type="text/css">
 .box {
@@ -46,12 +46,38 @@ table, tr, th, td {
 }
 
 .commentWrite {
-	margin-top: 50px;
+	position: relative; 
+	margin : 50px;
+	float: left;
+	text-align: left;
 }
+
+
+#cmtAddBtn {
+	position: absolute;
+	float: right;
+	top: 50px;
+	right: -70px;
+	padding: 5px 15px;
+	border: none;
+	background-color: #03c75a;
+	color: white;
+	cursor: pointer;
+}
+
+.btn{
+	border: none;
+	background-color: white;
+	color: #03c75a;
+	cursor: pointer;
+}
+
+
+
 </style>
 </head>
 <body>
-	
+
 
 	<div class="box">
 		<img alt="never" src="/image/네버로고.png"> <br>
@@ -59,7 +85,7 @@ table, tr, th, td {
 			<a href="/brd/modify?bno=${bvo.bno }"><button class="btnDe">수정</button></a>
 			<a href="/brd/remove?bno=${bvo.bno }"><button class="btnDe">삭제</button></a>
 		</c:if>
-		<a href="/brd/list"><button class="btnDe">글목록</button></a>
+		<a href="/brd/page"><button class="btnDe">글목록</button></a>
 		<table>
 			<tr>
 				<td><strong>번호</strong> ${bvo.bno }</td>
@@ -84,14 +110,16 @@ table, tr, th, td {
 
 		<div class="commentWrite">
 			<!-- 댓글 작성 라인 -->
-			<input type="text" id="cmtWriter" value="${ses.id }"
-				readonly="readonly"> <input type="text" id="cmtText"
-				placeholder="Add Comment">
+			<input type="text" id="cmtWriter" value="${ses.id }" readonly="readonly"><br>
+			<!-- <input type="text" id="cmtText" placeholder="Add Comment"> -->
+			<textarea rows="5" cols="70" placeholder="댓글을 등록해 주세요." id="cmtText"></textarea>
 			<button type="button" id="cmtAddBtn">등록</button>
 		</div>
+		
+		
 		<br>
 		<!-- 댓글 표시 라인 -->
-		<div class="accordion" id="accordionExample">
+		<!-- <div class="accordion" id="accordionExample">
 			<div class="accordion-item">
 				<h2 class="accordion-header" id="headingOne">
 					<button class="accordion-button" type="button"
@@ -104,12 +132,20 @@ table, tr, th, td {
 					<div class="accordion-body">content, regdate</div>
 				</div>
 			</div>
+		</div> -->
+		<div id="commentBox">
+			<strong>writer</strong> <br>
+			<textarea rows="3" cols="3" class="form-control" id="cmtText1">${result[i].content}</textarea>
+			<button type="button" data-cno="${result[i].cno}"
+				data-writer="${result[i].writer}" class="btn cmtModBtn">수정</button>
+			<button type="button" data-cno="${result[i].cno}"
+				data-writer="${result[i].writer}" class="btn cmtDelBtn">삭제</button>
 		</div>
 	</div>
-	<script
+	<!-- 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-		crossorigin="anonymous"></script>
+		crossorigin="anonymous"></script> -->
 	<script type="text/javascript">
 		const bnoVal = `<c:out value="${bvo.bno}"/>`;
 	</script>
