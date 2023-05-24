@@ -49,9 +49,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int getTotal() {
+	public int getTotal(PagingVO pgvo) {
 		// TODO Auto-generated method stub
-		return bdao.selectCount();
+		return bdao.selectCount(pgvo);
 	}
 
 	@Override

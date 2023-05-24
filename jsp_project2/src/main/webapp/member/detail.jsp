@@ -37,7 +37,7 @@ button {
 </head>
 <body>
 	<div>
-		<img alt="never" src="/image/네버로고.png"> <br>
+		<a href="/"><img alt="never" src="/image/네버로고.png"></a> <br>
 		<form action="/mem/modify?id=${mvo.id }" method="post">
 			<table>
 				<tr>

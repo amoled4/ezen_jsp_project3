@@ -80,7 +80,7 @@ table, tr, th, td {
 
 
 	<div class="box">
-		<img alt="never" src="/image/네버로고.png"> <br>
+		<a href="/"><img alt="never" src="/image/네버로고.png"></a> <br>
 		<c:if test="${bvo.writer eq ses.id }">
 			<a href="/brd/modify?bno=${bvo.bno }"><button class="btnDe">수정</button></a>
 			<a href="/brd/remove?bno=${bvo.bno }"><button class="btnDe">삭제</button></a>

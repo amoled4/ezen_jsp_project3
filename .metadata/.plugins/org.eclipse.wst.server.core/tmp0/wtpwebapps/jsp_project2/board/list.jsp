@@ -15,6 +15,11 @@ div {
 	text-align: center;
 }
 
+a {
+	text-decoration: none;
+	color: black;
+}
+
 img {
 	width: 300px;
 	margin-bottom: 50px;
@@ -43,7 +48,7 @@ tr:hover td {
 	color: #004;
 }
 
-button {
+.btn {
 	border: none;
 	padding: 10px 20px;
 	margin-top: 30px;
@@ -51,11 +56,30 @@ button {
 	color: white;
 	cursor: pointer;
 }
+
+.searchBox {
+	margin-top: 400px;
+}
+
+.searchBtn {
+	border: none;
+	background-color: #03c75a;
+	color: white;
+	cursor: pointer;
+}
+
+.selfBtn {
+	border: none;
+	background-color: white;
+	color: #03c75a;
+	text-decoration: underline;
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
 	<div>
-		<img alt="never" src="/image/네버로고.png"> <br>
+		<a href="/"><img alt="never" src="/image/네버로고.png"></a> <br>
 		<table>
 			<tr>
 				<th>번호</th>
@@ -79,20 +103,48 @@ button {
 
 		<!-- 이전페이지 -->
 		<c:if test="${pgh.prev }">
-			<a href="/brd/page?pageNo=${pgh.startPage-1 }&qty=${pgh.pgvo.qty}">prev</a>
+			<a
+				href="/brd/page?pageNo=${pgh.startPage-1 }&qty=${pgh.pgvo.qty}&type=${pgh.pgvo.type}&keyword=${pgh.pgvo.keyword}">prev</a>
 		</c:if>
 		<!-- 컨트롤러에서 page 정보를 싣고 와야 함 -->
 		<!-- startpage~endpage까지 숫자 반복 (foreach) -->
 		<c:forEach begin="${pgh.startPage }" end="${pgh.endPage }" var="i">
-			<a href="/brd/page?pageNo=${i }&qty=${pgh.pgvo.qty}">${i } | </a>
+			<a
+				href="/brd/page?pageNo=${i }&qty=${pgh.pgvo.qty}&type=${pgh.pgvo.type}&keyword=${pgh.pgvo.keyword}">${i }
+				| </a>
 		</c:forEach>
 		<!-- 다음페이지 -->
 		<c:if test="${pgh.next }">
-			<a href="/brd/page?pageNo=${pgh.endPage+1 }&qty=${pgh.pgvo.qty}">next</a>
+			<a
+				href="/brd/page?pageNo=${pgh.endPage+1 }&qty=${pgh.pgvo.qty}&type=${pgh.pgvo.type}&keyword=${pgh.pgvo.keyword}">next</a>
 		</c:if>
-		<br> <a href="/brd/register"><button type="button">글작성</button></a>
-		<a href="/"><button type="button">메인</button></a>
+		<br> <a href="/brd/register"><button type="button"
+				class="btn">글작성</button></a> <a href="/"><button type="button"
+				class="btn">메인</button></a>
+
+		<!-- 검색 라인 -->
+		<form action="/brd/page" method="post">
+			<div class="searchBox">
+				<c:set value="${pgh.pgvo.type }" var="typed"></c:set>
+				<select name="type">
+					<!-- selected : 현재 내가 선택한 값 -->
+					<option ${type == null ? 'selected':'' }>선택</option>
+					<option value="t" ${typed eq 't' ? 'selected':'' }>제목</option>
+					<option value="w" ${typed eq 'w' ? 'selected':'' }>작성자</option>
+					<option value="c" ${typed eq 'c' ? 'selected':'' }>내용</option>
+					<option value="tc" ${typed eq 'tc' ? 'selected':'' }>제목+내용</option>
+					<option value="tw" ${typed eq 'tw' ? 'selected':'' }>제목+작성자</option>
+					<option value="wc" ${typed eq 'wc' ? 'selected':'' }>작성자+내용</option>
+				</select> <input type="text" name="keyword" placeholder="Search"> <input
+					type="hidden" name="pageNo" value="${pgh.pgvo.pageNo }"> <input
+					type="hidden" name="qty" value="${pgh.pgvo.qty }">
+				<button type="submit" class="searchBtn">검색</button>
+				<a href="/brd/page?type=w&keyword=${ses.id }"><button
+						type="button" class="selfBtn">내가쓴글</button></a>
+			</div>
+		</form>
 	</div>
+
 
 </body>
 </html>

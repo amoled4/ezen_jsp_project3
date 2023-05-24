@@ -34,7 +34,7 @@ button{
 </head>
 <body>
 	<div>
-		<img alt="never" src="/image/네버로고.png"> <br>
+		<a href="/"><img alt="never" src="/image/네버로고.png"></a> <br>
 
 		<c:if test="${ses.id ne null }">
 		<strong>${ses.name }</strong> 님이 로그인하셨습니다. <br>

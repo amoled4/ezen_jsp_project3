@@ -68,14 +68,15 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	@Override
-	public int selectCount() {
+	public int selectCount(PagingVO pgvo) {
 		// TODO Auto-generated method stub
-		return sql.selectOne(NS+"totcount");
+		return sql.selectOne(NS+"totcount", pgvo);
 	}
 
 	@Override
 	public List<BoardVO> pageList(PagingVO pgvo) {
 		// TODO Auto-generated method stub
-		return sql.selectList(NS+"pageList", pgvo);
+		//return sql.selectList(NS+"pageList", pgvo);
+		return sql.selectList(NS+"selectList", pgvo);
 	}
 }

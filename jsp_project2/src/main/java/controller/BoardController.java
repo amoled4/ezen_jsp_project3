@@ -42,6 +42,8 @@ public class BoardController extends HttpServlet {
 	private PagingVO pgvo;
 	private int pageNo;  
 	private int qty; 
+	private String type;
+	private String keyword;
 	
 	
 	private HttpSession ses;
@@ -68,48 +70,33 @@ public class BoardController extends HttpServlet {
 			destPage="/board/list.jsp";
 			break;
 			
-//		case "pagesub":
-//			try {
-//				pageNo = Integer.parseInt(request.getParameter("pageNo"));
-//				qty = Integer.parseInt(request.getParameter("qty"));
-//				pgvo = new PagingVO(pageNo, qty);
-//				
-//				int totCount = bsv.getTotal();   // 전체 페이지 개수 DB에 요청
-//				log.info("전체 페이지 개수 : "+totCount);
-//				// limit를 이용한 select List를 호출 (startPage, qty)
-//				// 한 페이지에 나와야 하는 리스트
-//				List<BoardVO> list1 = bsv.getPageList(pgvo);
-//				log.info(">>> list > "+list1.size());
-//				PagingHandler ph = new PagingHandler(pgvo, totCount);
-//				request.setAttribute("pgh", ph);
-//				request.setAttribute("list", list1);
-//				log.info("pageList 성공");
-//				destPage = "/board/list.jsp";
-//				
-//			} catch (Exception e) {
-//				// TODO: handle exception
-//				e.printStackTrace();
-//			}
-//			
-//			break;
-			
 		case "page":
 			try {
 				pageNo = 1;
 				qty = 10;
+				type ="";
+				keyword= "";
+				if(request.getParameter("type") != null) {
+					type = request.getParameter("type");
+					keyword = request.getParameter("keyword");
+					log.info(">>>type >"+type+" >>> keyword > "+keyword);	
+				}
 				if(request.getParameter("pageNo") !=null) {
 					pageNo = Integer.parseInt(request.getParameter("pageNo"));
 					qty = Integer.parseInt(request.getParameter("qty"));
 				}
 				pgvo = new PagingVO(pageNo, qty);
+				pgvo.setType(type);
+				pgvo.setKeyword(keyword);
+				log.info(">>> pgvo > "+pgvo);
 				// 전체 페이지 개수
-				int totCount = bsv.getTotal();   // 전체 페이지 개수 DB에 요청
-				log.info("전체 페이지 개수 : "+totCount);
+				int totalCount = bsv.getTotal(pgvo);   // 전체 페이지 개수 DB에 요청
+				log.info("전체 페이지 개수 : "+totalCount);
 				// limit를 이용한 select List를 호출 (startPage, qty)
 				// 한 페이지에 나와야 하는 리스트
 				List<BoardVO> list1 = bsv.getPageList(pgvo);
 				log.info(">>> list > "+list1.size());
-				PagingHandler ph = new PagingHandler(pgvo, totCount);
+				PagingHandler ph = new PagingHandler(pgvo, totalCount);
 				request.setAttribute("pgh", ph);
 				request.setAttribute("list", list1);
 				log.info("pageList 성공");
@@ -133,7 +120,7 @@ public class BoardController extends HttpServlet {
 			
 			isOk = bsv.insert(bvo);
 			log.info(">>> 글작성 > "+(isOk>0?"성공":"실패"));
-			destPage = "/brd/list";
+			destPage = "/brd/page";
 			break;
 			
 		case "detail":
@@ -159,7 +146,7 @@ public class BoardController extends HttpServlet {
 			
 			isOk = bsv.edit(bvo);
 			log.info(">>> 글 수정 > "+(isOk>0?"성공":"실패"));
-			destPage = "/brd/list";
+			destPage = "/brd/page";
 			break;
 			
 		case "remove":
@@ -167,7 +154,7 @@ public class BoardController extends HttpServlet {
 			
 			isOk = bsv.remove(bno);
 			log.info(">>> 글 삭제 > "+(isOk>0?"성공":"실패"));
-			destPage="/brd/list";
+			destPage="/brd/page";
 			break;
 		}
 		

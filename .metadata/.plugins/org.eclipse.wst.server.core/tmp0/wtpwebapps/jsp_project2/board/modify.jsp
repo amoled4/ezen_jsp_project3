@@ -44,7 +44,7 @@ button {
 <body>
 	<form action="/brd/edit">
 		<div>
-			<img alt="never" src="/image/네버로고.png"> <br>
+			<a href="/"><img alt="never" src="/image/네버로고.png"></a> <br>
 			<table>
 				<tr>
 					<th>번호</th>
