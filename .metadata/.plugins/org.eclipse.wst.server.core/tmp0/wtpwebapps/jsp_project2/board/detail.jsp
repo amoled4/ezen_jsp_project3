@@ -46,12 +46,11 @@ table, tr, th, td {
 }
 
 .commentWrite {
-	position: relative; 
-	margin : 50px;
+	position: relative;
+	margin: 50px;
 	float: left;
 	text-align: left;
 }
-
 
 #cmtAddBtn {
 	position: absolute;
@@ -65,23 +64,18 @@ table, tr, th, td {
 	cursor: pointer;
 }
 
-.btn{
+.btn {
 	border: none;
 	background-color: white;
 	color: #03c75a;
 	cursor: pointer;
 }
-
-
-
 </style>
 </head>
 <body>
-
-
 	<div class="box">
 		<a href="/"><img alt="never" src="/image/네버로고.png"></a> <br>
-		<c:if test="${bvo.writer eq ses.id }">
+		<c:if test="${bvo.writer eq ses.id  || ses.auth eq '1' }">
 			<a href="/brd/modify?bno=${bvo.bno }"><button class="btnDe">수정</button></a>
 			<a href="/brd/remove?bno=${bvo.bno }"><button class="btnDe">삭제</button></a>
 		</c:if>
@@ -103,20 +97,27 @@ table, tr, th, td {
 				<td><strong>제목</strong> ${bvo.title }</td>
 			</tr>
 			<tr>
-				<td height="300">${bvo.content }</td>
+				<td height="300">
+					<c:if
+						test="${bvo.image ne '' && bvo.image ne null}">
+						<img alt="없음" src="/_fileUpload/${bvo.image }"><br>
+						<input type="hidden" name="image" value="${bvo.image }">
+					</c:if> ${bvo.content }
+				</td>
 			</tr>
 		</table>
 
 
 		<div class="commentWrite">
 			<!-- 댓글 작성 라인 -->
-			<input type="text" id="cmtWriter" value="${ses.id }" readonly="readonly"><br>
+			<input type="text" id="cmtWriter" value="${ses.id }"
+				readonly="readonly"><br>
 			<!-- <input type="text" id="cmtText" placeholder="Add Comment"> -->
 			<textarea rows="5" cols="70" placeholder="댓글을 등록해 주세요." id="cmtText"></textarea>
 			<button type="button" id="cmtAddBtn">등록</button>
 		</div>
-		
-		
+
+
 		<br>
 		<!-- 댓글 표시 라인 -->
 		<!-- <div class="accordion" id="accordionExample">

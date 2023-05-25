@@ -20,7 +20,7 @@ a {
 	color: black;
 }
 
-img {
+.mainImg {
 	width: 300px;
 	margin-bottom: 50px;
 }
@@ -58,7 +58,7 @@ tr:hover td {
 }
 
 .searchBox {
-	margin-top: 400px;
+	margin-top: 500px;
 }
 
 .searchBtn {
@@ -79,11 +79,11 @@ tr:hover td {
 </head>
 <body>
 	<div>
-		<a href="/"><img alt="never" src="/image/네버로고.png"></a> <br>
+		<a href="/"><img alt="never" src="/image/네버로고.png" class="mainImg"></a> <br>
 		<table>
 			<tr>
 				<th>번호</th>
-				<th>제목</th>
+				<th colspan="2">제목</th>
 				<th>작성자</th>
 				<th>작성일</th>
 				<th>조회수</th>
@@ -91,6 +91,11 @@ tr:hover td {
 			<c:forEach items="${list }" var="bvo">
 				<tr>
 					<td>${bvo.bno }</td>
+					<td>
+						<c:if test="${bvo.image ne '' && bvo.image ne null}">
+							<img alt="없음" src="/_fileUpload/th_${bvo.image }">
+						</c:if>
+					</td>
 					<td><a href="/brd/detail?bno=${bvo.bno }">${bvo.title }</a></td>
 					<td>${bvo.writer }</td>
 					<td>${bvo.regdate }</td>

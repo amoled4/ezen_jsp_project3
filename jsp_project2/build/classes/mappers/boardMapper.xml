@@ -9,8 +9,8 @@
   	</select>
   	
   	<insert id="insert" parameterType="bvo">
-  		insert into board (title, writer, content)
-  		values (#{title}, #{writer}, #{content})
+  		insert into board (title, writer, content, image)
+  		values (#{title}, #{writer}, #{content}, #{image})
   	</insert>
   	
   	<select id="detail" parameterType="int" resultType="bvo">
@@ -22,7 +22,7 @@
   	</update>
   	
   	<update id="upBoard" parameterType="bvo">
-  		update board set title=#{title}, content=#{content} where bno=#{bno}
+  		update board set title=#{title}, content=#{content}, image=#{image} where bno=#{bno}
   	</update>
   	
   	<delete id="delete">

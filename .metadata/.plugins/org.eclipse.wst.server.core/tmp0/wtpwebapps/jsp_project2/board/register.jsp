@@ -42,7 +42,7 @@ button {
 </style>
 </head>
 <body>
-	<form action="/brd/insert">
+	<form action="/brd/insert" method="post" enctype="multipart/form-data">
 		<div>
 			<a href="/"><img alt="never" src="/image/네버로고.png"></a> <br>
 			<table>
@@ -58,6 +58,10 @@ button {
 				<tr>
 					<th>내용</th>
 					<td><textarea name="content"></textarea></td>
+				</tr>
+				<tr>
+					<th>파일업로드</th>
+					<td><input type="file" id="file" name="image_file" accept="image/png, image/jpg, image/jpeg, image/bmp, image/gif"></td>
 				</tr>
 			</table>
 			<button type="submit">작성완료</button>

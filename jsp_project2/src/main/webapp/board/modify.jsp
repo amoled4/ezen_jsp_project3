@@ -14,7 +14,7 @@ div {
 	text-align: center;
 }
 
-img {
+.img {
 	width: 300px;
 	margin-bottom: 50px;
 }
@@ -42,9 +42,9 @@ button {
 </style>
 </head>
 <body>
-	<form action="/brd/edit">
+	<form action="/brd/edit" method="post" enctype="multipart/form-data">
 		<div>
-			<a href="/"><img alt="never" src="/image/네버로고.png"></a> <br>
+			<a href="/"><img alt="never" src="/image/네버로고.png" class="img"></a> <br>
 			<table>
 				<tr>
 					<th>번호</th>
@@ -72,11 +72,21 @@ button {
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td><textarea rows="3" cols="30" name="content">${bvo.content }</textarea></td>
+					<td>
+					<textarea rows="3" cols="30" name="content">
+					${bvo.content }</textarea>
+					</td>
+				</tr>
+				<tr>
+					<th></th>
+					<td>
+					<img alt="없음" src="/_fileUpload/th_${bvo.image }"><br>
+					<input type="file" name="new_file">
+					</td>
 				</tr>
 			</table>
 			<button type="submit">수정완료</button>
-			<a href="/brd/detail?bno=${bvo.bno }"><button>취소</button></a>
+			<a href="/brd/detail?bno=${bvo.bno }"><button type="button">취소</button></a>
 	</form>
 	</div>
 </body>

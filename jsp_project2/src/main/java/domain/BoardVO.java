@@ -7,6 +7,7 @@ public class BoardVO {
 	private String regdate;
 	private String content;
 	private int readcount;
+	private String image;
 	
 	// 생성자
 	public BoardVO() {}
@@ -74,13 +75,22 @@ public class BoardVO {
 	public void setReadcount(int readcount) {
 		this.readcount = readcount;
 	}
+	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
 
 	@Override
 	public String toString() {
 		return "BoardVO [bno=" + bno + ", title=" + title + ", writer=" + writer + ", regdate=" + regdate + ", content="
-				+ content + ", readcount=" + readcount + "]";
+				+ content + ", readcount=" + readcount + ", image=" + image + "]";
 	}
-	
+
+
 
 
 	
