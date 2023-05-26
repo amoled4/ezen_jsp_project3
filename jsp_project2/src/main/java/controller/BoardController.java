@@ -137,9 +137,11 @@ public class BoardController extends HttpServlet {
 			try {
 				// 파일을 업로드할 물리적인 경로를 설정
 				savePath = getServletContext().getRealPath("/_fileUpload");
+				// D:\_jsp_workspace\jsp_project3\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\jsp_project2\_fileUpload
 				log.info(">>> 파일저장경로 > "+savePath);
 				File fileDir = new File(savePath);
 				
+				// fileItem 오브젝트를 생성하는 클래스
 				DiskFileItemFactory fileItemFactory = new DiskFileItemFactory();
 				// 파일의 저장위치를 담고 있는 객체를 저장
 				fileItemFactory.setRepository(fileDir);
@@ -150,10 +152,11 @@ public class BoardController extends HttpServlet {
 				// multipart/form-data 형식으로 넘어온 request 객체를 다루기 쉽게 변환해주는 역할
 				ServletFileUpload fileUpload = new ServletFileUpload(fileItemFactory);
 				
+				// parseRequest() => FileItem이라는 형식으로 반환해줌
 				List<FileItem> itemList = fileUpload.parseRequest(request);
 				for(FileItem item : itemList) {
 					switch(item.getFieldName()) {
-					case "title":
+					case "title":  // 작성페이지의 name을 가져옴
 						bvo.setTitle(item.getString(UTF8));  // 인코딩 형식을 담아서 변환(안 하면 한글 깨짐)
 						break;
 					case "writer":
@@ -166,6 +169,7 @@ public class BoardController extends HttpServlet {
 						// 이미지가 있는지 없는지 체크
 						if(item.getSize()>0) {   // 데이터의 크기를 이용하여 값이 있는지 확인
 							// 경로를 포함한 파일이름에서 파일이름.확장자만 가져오기
+							log.info("아이템겟네임 : "+item.getName());
 							String fileName = item.getName().substring(item.getName().lastIndexOf("/")+1);   
 							// 현재시각을 밀리세컨드 단위로 반환
 							fileName = System.currentTimeMillis()+"_"+fileName;
@@ -188,10 +192,8 @@ public class BoardController extends HttpServlet {
 						break;
 					}
 				}
-				
 				isOk = bsv.insert(bvo);
 				log.info(">>> 글작성 > "+(isOk>0?"성공":"실패"));
-				
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
@@ -299,21 +301,14 @@ public class BoardController extends HttpServlet {
 			bno = Integer.parseInt(request.getParameter("bno"));
 			// 파일 삭제 추가
 			bvo = bsv.detail(bno);
-			log.info(">>>이미지가 있나여??? > "+bvo.getImage());
-			if(bvo.getImage() != null) {
-				savePath = getServletContext().getRealPath("/_fileUpload");
-				File fileDir = new File(savePath);
-				File deleteFilePath = new File(fileDir+File.separator+bvo.getImage());
-				File deleteThFilePath = new File(fileDir+File.separator+"th_"+bvo.getImage());
-				log.info(">>> 실제경로 > "+deleteFilePath);
-				log.info(">>> 섬네일 실제경로 > "+deleteThFilePath);
-				
-				deleteFilePath.delete();
-				deleteThFilePath.delete();
-			}
+			String imageFileName = bvo.getImage();
+			savePath = getServletContext().getRealPath("/_fileUpload");
+			FileHandler fh = new FileHandler();
+			fh.deleteFile(imageFileName, savePath);
+			
 			isOk = bsv.remove(bno);
 			log.info(">>> 글 삭제 > "+(isOk>0?"성공":"실패"));
-			destPage="/brd/page";
+			destPage="page";
 			break;
 		}
 		

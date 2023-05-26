@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>게시판</title>
 <style type="text/css">
-div {
+.all {
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -58,7 +58,9 @@ tr:hover td {
 }
 
 .searchBox {
-	margin-top: 500px;
+	position: relative;
+	margin-top: 50px;
+	margin-bottom: 50px;
 }
 
 .searchBtn {
@@ -78,7 +80,7 @@ tr:hover td {
 </style>
 </head>
 <body>
-	<div>
+	<div class="all">
 		<a href="/"><img alt="never" src="/image/네버로고.png" class="mainImg"></a> <br>
 		<table>
 			<tr>
