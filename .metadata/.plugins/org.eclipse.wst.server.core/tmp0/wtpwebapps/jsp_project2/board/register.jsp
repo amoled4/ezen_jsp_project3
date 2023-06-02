@@ -19,7 +19,7 @@ img {
 	margin-bottom: 50px;
 }
 
-input {
+.inp {
 	width: 300px;
 	height: 20px;
 	padding: 15px;
@@ -48,12 +48,12 @@ button {
 			<table>
 				<tr>
 					<th>제목</th>
-					<td><input type="text" name="title"></td>
+					<td><input type="text" name="title" class="inp"></td>
 				</tr>
 				<tr>
 					<th>작성자</th>
 					<td><input type="text" name="writer" value="${ses.id }"
-						readonly="readonly"></td>
+						readonly="readonly" class="inp"></td>
 				</tr>
 				<tr>
 					<th>내용</th>
